@@ -56,8 +56,7 @@ Use the higher-order function called getYears to do the following:
 3. Return an array called years containing all of the years in the getFinals data set*/
 
 function getYears(array, getFinalsCB) {
-    const years = getFinalsCB(array).map(item => item.Year);
-    return years
+    return getFinalsCB(array).map(item => item.Year);
 }
 // console.log('task 3:', getYears(fifaData, getFinals))
 
@@ -100,13 +99,9 @@ use map with item and index
  */
 
 function getWinnersByYear(array, getYearsCB, getWinnersCB) {
-    // const years = getYearsCB();
-    // console.log(years);
-
-
-
-    // const winnersByYear = getWinnersCB(array, getYearsCB).map((item, index) => `In ${years[index]}, ${item[index]} won the world cup!`);
-    // return winnersByYear;
+    const winners = getWinnersCB(array, getFinals);
+    const years = getYearsCB(array, getFinals);
+    return winners.map((item, index) => `In ${years[index]}, ${item} won the world cup!`)
 }
 console.log(getWinnersByYear(fifaData,getYears,getWinners))
 
@@ -132,7 +127,7 @@ function getAverageGoals(getFinalsCB) {
     }); const averageGoals = goalsTotals.reduce((total, item) => total + item);
     return (averageGoals/goalsTotals.length).toFixed(2)
 } 
-console.log(getAverageGoals(getFinals(fifaData)));
+// console.log(getAverageGoals(getFinals(fifaData)));
 
 
 
