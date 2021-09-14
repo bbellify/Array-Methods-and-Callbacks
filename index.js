@@ -72,9 +72,18 @@ Use the higher-order function getWinners to do the following:
 // don't worry about over time - compare home teams goals to away team goals
 
 function getWinners(array, getFinalsCB) {
-    /* code here */
+    const winners = getFinalsCB(array).map(function(item) {
+        if (item['Home Team Goals'] > item['Away Team Goals']) {
+            return item['Home Team Name']
+        } else if (item['Home Team Goals'] < item['Away Team Goals']) {
+            return item['Away Team Name']
+        } else {
+            let firstWord = item['Win conditions'].split(" ");
+            return firstWord[0]
+        }
+    }); return winners;
 }
-
+// console.log(getWinners(fifaData, getFinals))
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 5: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -90,10 +99,16 @@ use map with item and index
 
  */
 
-function getWinnersByYear(/* code here */) {
-    /* code here */
-}
+function getWinnersByYear(array, getYearsCB, getWinnersCB) {
+    // const years = getYearsCB();
+    // console.log(years);
 
+
+
+    // const winnersByYear = getWinnersCB(array, getYearsCB).map((item, index) => `In ${years[index]}, ${item[index]} won the world cup!`);
+    // return winnersByYear;
+}
+console.log(getWinnersByYear(fifaData,getYears,getWinners))
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -108,10 +123,16 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-   /* code here */
-}
-
+function getAverageGoals(getFinalsCB) {
+    const goalsTotals = getFinalsCB.map(function(item){
+        let goalCounter = 0;
+        goalCounter = goalCounter + item['Home Team Goals'];
+        goalCounter = goalCounter + item['Away Team Goals'];
+        return goalCounter
+    }); const averageGoals = goalsTotals.reduce((total, item) => total + item);
+    return (averageGoals/goalsTotals.length).toFixed(2)
+} 
+console.log(getAverageGoals(getFinals(fifaData)));
 
 
 
